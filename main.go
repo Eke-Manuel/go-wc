@@ -60,7 +60,9 @@ func main() {
 		},
 		Action: func(cCtx *cli.Context) error {
 			if cCtx.NumFlags() == 0 {
-				fmt.Println("Support for default action to be added soon. Please use flags to indicate intended action. Run 'gwc help' for a list of available flags")
+				file := cCtx.Args().Get(0)
+				allCount := getAllCount(cCtx, file)
+				fmt.Println(allCount)
 			}
 			return nil
 		},

@@ -46,6 +46,21 @@ func lineCount(cCtx *cli.Context, file string) (string, error) {
 	return countString, nil
 }
 
+func getAllCount(cCtx *cli.Context, file string) string {
+	wordCountString, _ := wordCount(cCtx, file)
+	byteCountString, _ := byteCount(cCtx, file)
+	lineCountString, _ := lineCount(cCtx, file)
+
+	wordCountValue := strings.Fields(wordCountString)[0]
+	byteCountValue := strings.Fields(byteCountString)[0]
+	lineCountValue := strings.Fields(lineCountString)[0]
+	charCountValue := byteCountValue
+
+	allCount := fmt.Sprintf("%v %v %v %v %v", lineCountValue, wordCountValue, charCountValue, byteCountValue, file)
+
+	return allCount
+}
+
 func checkErrorAndFormatOutput(count int, file string, err error) string {
 	if err != nil {
 		log.Fatal(err)
