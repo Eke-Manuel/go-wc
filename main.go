@@ -9,52 +9,53 @@ import (
 )
 
 func main() {
-	filename := "test.txt"
 	app := &cli.App{
-		Name:  "gwc",
-		Usage: "Go implementation of the Unix wc command",
+		Name:                   "gwc",
+		Usage:                  "Go implementation of the Unix wc command",
+		UseShortOptionHandling: true,
 		Flags: []cli.Flag{
-			&cli.StringFlag{
-				Name:        "lines",
-				Aliases:     []string{"l"},
-				Usage:       "displays number of lines in the file",
-				Destination: &filename,
-				Action: func(cCtx *cli.Context, s string) error {
-					countString, err := lineCount(cCtx, s)
+			&cli.BoolFlag{
+				Name:    "lines",
+				Aliases: []string{"l"},
+				Usage:   "displays number of lines in the file",
+				Action: func(cCtx *cli.Context, b bool) error {
+					file := cCtx.Args().Get(0)
+					countString, _ := lineCount(cCtx, file)
 					fmt.Println((countString))
-					return err
+					return nil
 				},
 			},
-			&cli.StringFlag{
-				Name:        "words",
-				Aliases:     []string{"w"},
-				Usage:       "displays the number of words in the file",
-				Destination: &filename,
-				Action: func(cCtx *cli.Context, s string) error {
-					countString, err := wordCount(cCtx, s)
+			&cli.BoolFlag{
+				Name:    "words",
+				Aliases: []string{"w"},
+				Usage:   "displays the number of words in the file",
+				Action: func(cCtx *cli.Context, b bool) error {
+					file := cCtx.Args().Get(0)
+					countString, _ := wordCount(cCtx, file)
 					fmt.Println((countString))
-					return err
+					return nil
 				},
 			},
-			&cli.StringFlag{
+			&cli.BoolFlag{
 				Name:    "bytes",
 				Aliases: []string{"c"},
-				Usage:   "displays the count of bytes in the file", Destination: &filename,
-				Action: func(cCtx *cli.Context, s string) error {
-					countString, err := byteCount(cCtx, s)
-					fmt.Println(countString)
-					return err
+				Usage:   "displays the count of bytes in the file",
+				Action: func(cCtx *cli.Context, b bool) error {
+					file := cCtx.Args().Get(0)
+					countString, _ :=  byteCount(cCtx, file)
+					fmt.Println((countString))
+					return nil
 				},
 			},
-			&cli.StringFlag{
-				Name:        "char",
-				Aliases:     []string{"m"},
-				Usage:       "displays count of characters from a file",
-				Destination: &filename,
-				Action: func(cCtx *cli.Context, s string) error {
-					countString, err := byteCount(cCtx, s)
-					fmt.Println(countString)
-					return err
+			&cli.BoolFlag{
+				Name:    "char",
+				Aliases: []string{"m"},
+				Usage:   "displays count of characters from a file",
+				Action: func(cCtx *cli.Context, b bool) error {
+					file := cCtx.Args().Get(0)
+					countString, _ := byteCount(cCtx, file)
+					fmt.Println((countString))
+					return nil
 				},
 			},
 		},
