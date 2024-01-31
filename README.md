@@ -34,6 +34,3 @@ For a list of available options, run:
 ```bash
 gwc.exe help
 ```
-
-Support for default action to be added soon, use flags to indicate option. Run 'gwc help' for a list of available flags. 
-Compound flags are not supported yet.
